@@ -1,0 +1,14 @@
+scripts:
+  - name: 'success_silent'
+    script: sleep 3
+
+  - name: 'success'
+    script: echo "OK; all is OK" && sleep 3
+    timeout: 4
+
+  - name: 'failure'
+    script: echo "CRITICAL; failure " && exit 2
+
+  - name: 'timeout'
+    script: sleep 5
+    timeout: 2
