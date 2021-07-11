@@ -1,6 +1,9 @@
-# Script Exporter
+# Advanced Script Exporter
 
 Based on GitHub: https://github.com/adhocteam/script_exporter
+What was changed:
+- Added new metric `script_exit_code`
+- Added labels `nagios_status` and `output` to all merics
 
 Prometheus exporter written to execute and collect metrics on script exit status
 and duration. Designed to allow the execution of probes where support for the
