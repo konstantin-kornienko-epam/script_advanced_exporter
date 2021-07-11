@@ -185,9 +185,8 @@ func scriptRunHandler(w http.ResponseWriter, r *http.Request, config *Config) {
 	measurements := runScripts(scripts)
 
 	for _, measurement := range measurements {
-		// prepare status
+		// prepare vars
 		var status int
-
 		if measurement.ScriptResult.ExitCode == 0 {
 			status = 1
 		} else {
@@ -204,6 +203,10 @@ func scriptRunHandler(w http.ResponseWriter, r *http.Request, config *Config) {
 			measurement.Script.Name,
 			nagios_status,
 		)
+
+		if status == 0 {
+			fmt.Fprintf(&labels, ",timeout=\"%t\"", measurement.ScriptResult.Timeout)
+		}
 
 		stdout := formatStdOut(measurement.ScriptResult.Output)
 		if len(stdout) > 0 {

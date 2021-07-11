@@ -3,7 +3,7 @@
 Based on GitHub: https://github.com/adhocteam/script_exporter
 What was changed:
 - Added new metric `script_exit_code`
-- Added labels `nagios_status` and `output` to all merics
+- Added labels `nagios_status`, `timeout` and `output` to all merics
 
 Prometheus exporter written to execute and collect metrics on script exit status
 and duration. Designed to allow the execution of probes where support for the
@@ -64,15 +64,18 @@ A regular expression may be specified with the `pattern` paremeter:
 `$ curl http://localhost:9172/probe?pattern=.*`
 
 ```
-script_duration_seconds{script="timeout"} 1.005727
-script_success{script="timeout"} 0
-script_exit_code{script="timeout"} 2
-script_duration_seconds{script="failure"} 2.015021
-script_success{script="failure"} 0
-script_exit_code{script="timeout"} 1
-script_duration_seconds{script="success"} 5.013670
-script_success{script="success"} 1
-script_exit_code{script="timeout"} 0
+script_duration_seconds{script="failure",nagios_status="CRITICAL",timeout="false",output="CRITICAL; failure"} 0.000973
+script_success{script="failure",nagios_status="CRITICAL",timeout="false",output="CRITICAL; failure"} 0
+script_exit_code{script="failure",nagios_status="CRITICAL",timeout="false",output="CRITICAL; failure"} 2
+script_duration_seconds{script="timeout",nagios_status="CRITICAL",timeout="true",output="Timeout running command"} 2.000661
+script_success{script="timeout",nagios_status="CRITICAL",timeout="true",output="Timeout running command"} 0
+script_exit_code{script="timeout",nagios_status="CRITICAL",timeout="true",output="Timeout running command"} 2
+script_duration_seconds{script="success_silent",nagios_status="OK"} 3.001741
+script_success{script="success_silent",nagios_status="OK"} 1
+script_exit_code{script="success_silent",nagios_status="OK"} 0
+script_duration_seconds{script="success",nagios_status="OK",output="OK; all is OK"} 3.001713
+script_success{script="success",nagios_status="OK",output="OK; all is OK"} 1
+script_exit_code{script="success",nagios_status="OK",output="OK; all is OK"} 0
 ```
 
 ## Design
