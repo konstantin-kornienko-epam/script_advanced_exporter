@@ -33,7 +33,7 @@ You can run via docker with:
 ```
 docker run -d -p 9172:9172 --name script-exporter \
   -v `pwd`/script-exporter.yml:/etc/script-exporter/config.yml:ro \
-  adhocteam/script-exporter:master \
+  konstantin-kornienko-epam/script_advanced_exporter:master \
   -config.file=/etc/script-exporter/config.yml \
   -web.listen-address=":9172" \
   -web.telemetry-path="/metrics" \
